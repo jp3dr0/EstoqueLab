@@ -1,0 +1,33 @@
+<section class="signup-container">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input #inputEmail="ngModel" type="email" matInput placeholder="Digite seu email" ngModel name="email" email
+        required />
+      <mat-error *ngIf="inputEmail.hasError('required')">Campo não pode estar vazio.</mat-error>
+      <mat-error *ngIf="!inputEmail.hasError('required')">Digite um email válido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field hintLabel="Deve ter 6 caracteres, no mínimo.">
+      <input #inputSenha="ngModel" type="password" matInput placeholder="Senha" ngModel name="senha" minlength="6"
+        required />
+      <mat-hint align="end">{{ inputSenha.value?.length }}/6</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <!-- caixa de texto -->
+      <input matInput [matDatepicker]="modal" placeholder="Escolha uma data" [max]="dataMaxima" ngModel required name="aniversario" />
+      <!-- botao para escolher a data -->
+      <mat-datepicker-toggle matSuffix [for]="modal"></mat-datepicker-toggle>
+      <!-- "modal" para escolher a data, que aparece apos clicar no botao -->
+      <mat-datepicker #modal></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox ngModel name="checkbox" required color="primary">
+      Eu aceito os termos de condições.
+    </mat-checkbox>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">
+      Cadastrar
+    </button>
+  </form>
+</section>

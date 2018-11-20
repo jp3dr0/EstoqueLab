@@ -1,0 +1,15 @@
+<h1>LISTAGEM</h1>
+
+<button mat-button (click)="getReagentes()">Get Reagentes</button>
+
+<h2>tamanhos</h2>
+
+<mat-list>
+  <mat-list-item *ngFor="let tamanho of tamanhos">{{ tamanho }}</mat-list-item>
+</mat-list>
+
+<h2>reagentes</h2>
+
+<mat-list>
+  <mat-list-item *ngFor="let reagente of reagentes">{{ reagente }}</mat-list-item>
+</mat-list>

@@ -1,0 +1,32 @@
+<section class="container">
+  <!-- #f="ngForm" -->
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <!--
+        #inputEmail="ngModel"
+        required
+        ngModel
+        name="email"
+        email
+      -->
+      <input hint="Por favor insira um email válido." type="email" matInput placeholder="Digite seu email"
+        formControlName="email" />
+      <mat-error>Digite um email válido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field hintLabel="Deve ter 6 caracteres, no mínimo.">
+      <!--
+        #inputSenha="ngModel"
+        name="senha"
+        required
+        ngModel
+        minlength="6"
+      -->
+      <input type="password" matInput placeholder="Sua senha" formControlName="senha" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+      Enviar
+    </button>
+  </form>
+</section>
