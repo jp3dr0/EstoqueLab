@@ -16,7 +16,11 @@ import {
   MatProgressSpinnerModule,
   MatDialogModule,
   MatTableModule,
-  MatSortModule
+  MatSortModule,
+  MatSnackBarModule,
+  MatSlideToggleModule,
+  MatGridListModule,
+  MatExpansionModule
 } from "@angular/material";
 
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
@@ -39,7 +43,11 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatProgressSpinnerModule,
     MatDialogModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatSlideToggleModule,
+    MatGridListModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -57,7 +65,11 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatProgressSpinnerModule,
     MatDialogModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatSlideToggleModule,
+    MatGridListModule,
+    MatExpansionModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: "pt-BR" }]
 })

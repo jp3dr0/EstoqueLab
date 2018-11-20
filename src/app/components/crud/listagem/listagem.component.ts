@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ReagenteService } from "src/app/services/reagente.service";
 
 @Component({
@@ -13,11 +13,18 @@ export class ListagemComponent implements OnInit {
   tamanhos: any[];
   tamanhosObservable: Observable<any[]>;
 
+  @Input() items: any[];
+
   constructor(private reagenteService: ReagenteService) {}
 
   ngOnInit() {
+    //console.log(this.items.length);
+
+    //this.items = this.fixItems(this.items);
+    //console.log(this.items.length);
+
     this.tamanhos = [];
-    this.reagentes = [];
+    //this.reagentes = [];
 
     this.tamanhosObservable = this.reagenteService.getTamanhos();
 
@@ -25,6 +32,13 @@ export class ListagemComponent implements OnInit {
       console.log(tamanhos);
       this.tamanhos = tamanhos;
     });
+  }
+
+  fixItems(items) {
+    while (items.length % 2 !== 0) {
+      items.push(items[0]);
+    }
+    return items;
   }
 
   getReagentes() {

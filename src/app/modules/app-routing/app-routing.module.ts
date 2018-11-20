@@ -1,3 +1,5 @@
+import { ReagenteComponent } from './../../components/crud/reagente/reagente.component';
+import { VidrariaComponent } from './../../components/crud/vidraria/vidraria.component';
 import { AuthGuard } from "./../../guards/auth.guard";
 import { ListagemComponent } from "./../../components/crud/listagem/listagem.component";
 import { LoginComponent } from "./../../components/auth/login/login.component";
@@ -10,7 +12,9 @@ const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "registrar", component: RegistrarComponent },
   { path: "login", component: LoginComponent },
-  { path: "home", component: ListagemComponent, canActivate: [AuthGuard] }
+  { path: "home", component: ListagemComponent, canActivate: [AuthGuard] },
+  { path: "vidraria", component: VidrariaComponent },
+  { path: "reagente", component: ReagenteComponent },
 ];
 
 @NgModule({
