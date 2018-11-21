@@ -262,61 +262,76 @@
   </div>
 -->
 
-<div fxLayoutAlign="center center">
-  <mat-form-field fxFlex="60%">
-    <input
-      matInput
-      type="text"
-      placeholder="Filtrar"
-      (keyup)="filtrar($event.target.value)"
-    />
-  </mat-form-field>
+<div fxLayoutAlign="center" *ngIf="!loading">
+  <mat-card fxFlex="1000px" fxFlex.xs="100%" style="margin-top: 20px;">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-card-header>
+        <mat-card-title>{{ id ? "Editar Reagente" : "Criar Reagente" }}</mat-card-title>
+      </mat-card-header>
+      <!-- <img matCardImage src="Card wide image source"> -->
+      <mat-card-content style="margin-top: 5px;">
+        <mat-accordion>
+
+          <mat-expansion-panel>
+            <!-- class="right-aligned-header" -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Nome
+              </mat-panel-title>
+              <mat-panel-description>
+                {{reagente ? reagente.nome : "Digite abaixo o nome do novo Reagente"}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayoutAlign="center">
+
+              <mat-form-field>
+                <input matInput placeholder="Novo Nome" hint="Altere o nome do Reagente." type="string" formControlName="nome"
+                  [(ngModel)]="nome">
+              </mat-form-field>
+            </div>
+
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <!-- class="right-aligned-header" -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Quantidade
+              </mat-panel-title>
+              <mat-panel-description>
+                {{reagente ? "Estoque Total: " + reagente.qtdEstoqueTotal : "Digite as quantidades de estoque do
+                reagente
+                (no mínimo a quantidade lacrada)"}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayoutAlign="center" fxLayoutGap="10px">
+              <mat-form-field>
+                <input matInput placeholder="Quantidade Lacrada" hint="Quantidade lacrada do Reagente." type="number"
+                  formControlName="qtdEstoqueLacrado" [(ngModel)]="lacrado" (change)="atualizarTotal()">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Quantidade Aberta" hint="Quantidade do Aberta do Reagente." type="number"
+                  formControlName="qtdEstoqueAberto" [(ngModel)]="aberto" (change)="atualizarTotal()">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Quantidade Total" hint="Quantidade do Total Reagente." type="number"
+                  formControlName="qtdEstoqueTotal" [(ngModel)]="total">
+              </mat-form-field>
+            </div>
+
+          </mat-expansion-panel>
+
+
+        </mat-accordion>
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button mat-raised-button color="primary" type="submit">Enviar</button>
+
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
 </div>
-
-<mat-table [dataSource]="dataSource" matSort>
-  <ng-container matColumnDef="data">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Data</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.data | date }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="nome">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.nome }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="valor">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
-    <mat-cell *matCellDef="let element"
-      >{{ element.valor }} {{ element.unidade.nome }}</mat-cell
-    >
-  </ng-container>
-
-  <ng-container matColumnDef="classificacao">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{
-      element.classificacao.nome
-    }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="quantidade">
-    <mat-header-cell *matHeaderCellDef mat-sort-header
-      >Quantidade Total</mat-header-cell
-    >
-    <mat-cell *matCellDef="let element">{{ element.qtdEstoqueTotal }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="acoes">
-    <mat-header-cell fxFlex="5" *matHeaderCellDef mat-sort-header
-      >Ações</mat-header-cell
-    >
-    <mat-cell *matCellDef="let element" fxFlex="5">
-      <a mat-list-item routerLink="/registrar" *ngIf="!isLoggedIn">
-        <mat-icon>delete</mat-icon>
-        <span class="nav-legenda">Deletar</span>
-      </a>
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</mat-table>
+<div fxLayoutAlign="center" *ngIf="loading">
+  <mat-progress-spinner [diameter]="40" mode="indeterminate" color="primary" style="margin-top: 20px;"></mat-progress-spinner>
+</div>

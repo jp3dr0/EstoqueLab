@@ -1,5 +1,4 @@
-.example-card {
-}
+.example-card {}
 
 .example-header-image {
   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
@@ -8,4 +7,9 @@
 
 .pading_card {
   padding: 10px;
+}
+
+.container {
+  width: 500px !important;
+  max-width: 500px !important;
 }

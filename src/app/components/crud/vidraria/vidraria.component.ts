@@ -1,183 +1,84 @@
-import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
-import { DropEffect, DndDropEvent } from "ngx-drag-drop";
-
+import { FormControl } from "@angular/forms";
+import { VidrariaService } from "./../../../services/vidraria.service";
+import { MatDialog } from "@angular/material";
+import { ActivatedRoute } from "@angular/router";
+import { FormGroup } from "@angular/forms";
+import { Vidraria } from "./../../../models/vidraria";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 @Component({
   selector: "app-vidraria",
   templateUrl: "./vidraria.component.html",
   styleUrls: ["./vidraria.component.scss"]
 })
 export class VidrariaComponent implements OnInit {
-  ngOnInit() {}
+  vidraria: Vidraria;
+  id: number;
+  private sub: any;
+  form: FormGroup;
+  loading: boolean;
 
-  draggableListLeft = [
-    {
-      content: "Left",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefter",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Leftest",
-      effectAllowed: "copyMove",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefty",
-      effectAllowed: "move",
-      disable: false,
-      handle: true
-    },
-    {
-      content: "Left",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefter",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Leftest",
-      effectAllowed: "copyMove",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefty",
-      effectAllowed: "move",
-      disable: false,
-      handle: true
-    },
-    {
-      content: "Left",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefter",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Leftest",
-      effectAllowed: "copyMove",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefty",
-      effectAllowed: "move",
-      disable: false,
-      handle: true
-    },
-    {
-      content: "Left",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefter",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Leftest",
-      effectAllowed: "copyMove",
-      disable: false,
-      handle: false
-    },
-    {
-      content: "Lefty",
-      effectAllowed: "move",
-      disable: false,
-      handle: true
-    }
-  ];
+  nome: string;
+  estoque: number;
 
-  draggableListRight = [
-    {
-      content: "I was originally right",
-      effectAllowed: "move",
-      disable: false,
-      handle: false
-    }
-  ];
-  layout: any;
-  horizontalLayoutActive: boolean = false;
-  private currentDraggableEvent: DragEvent;
-  private currentDragEffectMsg: string;
-  private readonly verticalLayout = {
-    container: "row",
-    list: "column",
-    dndHorizontal: false
-  };
-  private readonly horizontalLayout = {
-    container: "row",
-    list: "row",
-    dndHorizontal: true
-  };
+  constructor(
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private vidrariaService: VidrariaService
+  ) {
+    this.loading = true;
 
-  constructor(private snackBarService: MatSnackBar) {
-    this.setHorizontalLayout(this.horizontalLayoutActive);
+    this.form = new FormGroup({
+      nome: new FormControl("", {
+        validators: []
+      }),
+      estoque: new FormControl("", {
+        //validators: [Validators.required]
+      })
+    });
   }
 
-  setHorizontalLayout(horizontalLayoutActive: boolean) {
-    this.layout = horizontalLayoutActive
-      ? this.horizontalLayout
-      : this.verticalLayout;
-  }
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      if (params && params["id"] != 0) {
+        this.id = +params["id"]; // (+) converts string 'id' to a number
 
-  onDragStart(event: DragEvent) {
-    this.currentDragEffectMsg = "";
-    this.currentDraggableEvent = event;
+        this.vidrariaService.getVidraria(this.id).subscribe(v => {
+          this.vidraria = v;
+          this.loading = false;
 
-    this.snackBarService.dismiss();
-    this.snackBarService.open("Drag started!", undefined, { duration: 2000 });
-  }
-
-  onDragged(item: any, list: any[], effect: DropEffect) {
-    this.currentDragEffectMsg = `Drag ended with effect "${effect}"!`;
-
-    if (effect === "move") {
-      const index = list.indexOf(item);
-      list.splice(index, 1);
-    }
-  }
-
-  onDragEnd(event: DragEvent) {
-    this.currentDraggableEvent = event;
-    this.snackBarService.dismiss();
-    this.snackBarService.open(
-      this.currentDragEffectMsg || `Drag ended!`,
-      undefined,
-      { duration: 2000 }
-    );
-  }
-
-  onDrop(event: DndDropEvent, list?: any[]) {
-    if (list && (event.dropEffect === "copy" || event.dropEffect === "move")) {
-      let index = event.index;
-
-      if (typeof index === "undefined") {
-        index = list.length;
+          this.nome = v.nome;
+          this.estoque = v.qtdEstoque;
+        });
+      } else {
+        this.loading = false;
       }
+      // In a real app: dispatch action to load the details here.
+    });
+  }
 
-      list.splice(index, 0, event.data);
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  onSubmit() {
+    console.log("editar " + this.form.value);
+    if (this.form.value) {
+      this.loading = true;
+      this.vidrariaService
+        .updateVidraria(this.id, {
+          ...this.form.value
+        })
+        .subscribe(
+          res => {
+            alert(res.toString());
+            this.loading = false;
+          },
+          error => {
+            alert(error.toString());
+          }
+        );
+    } else {
+      alert("Nenhum valor foi digitado!");
     }
   }
 }

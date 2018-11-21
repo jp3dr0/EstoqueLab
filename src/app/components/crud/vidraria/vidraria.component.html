@@ -1,3 +1,69 @@
+<div fxLayoutAlign="center" *ngIf="!loading">
+  <mat-card fxFlex="1000px" fxFlex.xs="100%" style="margin-top: 20px;">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-card-header>
+        <mat-card-title>{{ id ? "Editar Vidraria" : "Criar Vidraria" }}</mat-card-title>
+      </mat-card-header>
+      <!-- <img matCardImage src="Card wide image source"> -->
+      <mat-card-content style="margin-top: 5px;">
+        <mat-accordion>
+
+          <mat-expansion-panel>
+            <!-- class="right-aligned-header" -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Nome
+              </mat-panel-title>
+              <mat-panel-description>
+                {{vidraria ? vidraria.nome : "Digite abaixo o nome da nova Vidraria"}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayoutAlign="center">
+              <mat-form-field>
+                <input matInput placeholder="Novo Nome" hint="Altere o nome do Vidraria." type="string" formControlName="nome"
+                  [(ngModel)]="nome">
+              </mat-form-field>
+            </div>
+
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <!-- class="right-aligned-header" -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Quantidade
+              </mat-panel-title>
+              <mat-panel-description>
+                {{vidraria ? "Estoque Total: " + vidraria.qtdEstoque : "Digite a quantidade de estoque da
+                vidraria
+                "}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayoutAlign="center" fxLayoutGap="10px">
+              <mat-form-field>
+                <input matInput placeholder="Estoque Total" hint="Quantidade Total do Estoque da Vidraria." type="number"
+                  formControlName="qtdEstoqueLacrado" [(ngModel)]="estoque">
+              </mat-form-field>
+
+            </div>
+
+          </mat-expansion-panel>
+
+
+        </mat-accordion>
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button mat-raised-button color="primary" type="submit">Enviar</button>
+
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
+</div>
+<div fxLayoutAlign="center" *ngIf="loading">
+  <mat-progress-spinner [diameter]="40" mode="indeterminate" color="primary" style="margin-top: 20px;"></mat-progress-spinner>
+</div>
+
 <!--
   [fxLayout]="layout.list"
   <div

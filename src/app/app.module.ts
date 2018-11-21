@@ -17,6 +17,10 @@ import { ReagenteComponent } from "./components/crud/reagente/reagente.component
 import { ListagemComponent } from "./components/crud/listagem/listagem.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { ExcluirModalComponent } from "./components/crud/excluir-modal.component";
+import { ReagentesComponent } from './components/crud/reagentes/reagentes.component';
+import { VidrariasComponent } from './components/crud/vidrarias/vidrarias.component';
+import { PageNotFoundComponent } from './components/navigation/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { HttpClientModule } from "@angular/common/http";
     RegistrarComponent,
     VidrariaComponent,
     ReagenteComponent,
-    ListagemComponent
+    ListagemComponent,
+    ExcluirModalComponent,
+    ReagentesComponent,
+    VidrariasComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +50,7 @@ import { HttpClientModule } from "@angular/common/http";
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ExcluirModalComponent]
 })
 export class AppModule {}

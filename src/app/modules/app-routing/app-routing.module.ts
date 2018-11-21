@@ -1,5 +1,8 @@
-import { ReagenteComponent } from './../../components/crud/reagente/reagente.component';
-import { VidrariaComponent } from './../../components/crud/vidraria/vidraria.component';
+import { PageNotFoundComponent } from "./../../components/navigation/page-not-found/page-not-found.component";
+import { ReagentesComponent } from "./../../components/crud/reagentes/reagentes.component";
+import { VidrariasComponent } from "./../../components/crud/vidrarias/vidrarias.component";
+import { ReagenteComponent } from "./../../components/crud/reagente/reagente.component";
+import { VidrariaComponent } from "./../../components/crud/vidraria/vidraria.component";
 import { AuthGuard } from "./../../guards/auth.guard";
 import { ListagemComponent } from "./../../components/crud/listagem/listagem.component";
 import { LoginComponent } from "./../../components/auth/login/login.component";
@@ -13,8 +16,11 @@ const routes: Routes = [
   { path: "registrar", component: RegistrarComponent },
   { path: "login", component: LoginComponent },
   { path: "home", component: ListagemComponent, canActivate: [AuthGuard] },
-  { path: "vidraria", component: VidrariaComponent },
-  { path: "reagente", component: ReagenteComponent },
+  { path: "vidraria", redirectTo: "vidraria/" },
+  { path: "vidraria/:id", component: VidrariaComponent },
+  { path: "reagente", redirectTo: "reagente/" },
+  { path: "reagente/:id", component: ReagenteComponent },
+  { path: "**", component: PageNotFoundComponent }
 ];
 
 @NgModule({

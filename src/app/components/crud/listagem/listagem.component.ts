@@ -25,13 +25,14 @@ export class ListagemComponent implements OnInit {
 
     this.tamanhos = [];
     //this.reagentes = [];
-
+    /*
     this.tamanhosObservable = this.reagenteService.getTamanhos();
 
     this.tamanhosObservable.subscribe(tamanhos => {
       console.log(tamanhos);
       this.tamanhos = tamanhos;
     });
+    */
   }
 
   fixItems(items) {

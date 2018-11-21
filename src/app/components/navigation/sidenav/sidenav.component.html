@@ -7,9 +7,9 @@
     <mat-icon>input</mat-icon>
     <span class="nav-legenda">Login</span>
   </a>
-  <a mat-list-item routerLink="/treino" *ngIf="isLoggedIn">
-    <mat-icon>fitness_center</mat-icon>
-    <span class="nav-legenda">Treino</span>
+  <a mat-list-item routerLink="/home" *ngIf="isLoggedIn">
+    <mat-icon>toc</mat-icon>
+    <span class="nav-legenda">Estoque</span>
   </a>
   <mat-list-item>
     <button mat-icon-button click *ngIf="isLoggedIn" (click)="onLogout()">

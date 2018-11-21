@@ -4,12 +4,12 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div><a routerLink="/">LOGO</a></div>
+  <div><a routerLink="/">Estoque Lab</a></div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li *ngIf="!isLoggedIn"><a routerLink="/registrar">Registrar</a></li>
       <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
-      <li *ngIf="isLoggedIn"><a routerLink="/treino">Treino</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/home">Estoque</a></li>
       <li *ngIf="isLoggedIn">
         <a style="cursor: pointer" (click)="onLogout()">Logout</a>
       </li>

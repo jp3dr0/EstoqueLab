@@ -1,5 +1,5 @@
-<section class="signup-container">
-  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+<section class="signup-container" style='margin-top: 30px;'>
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <mat-form-field>
       <input #inputEmail="ngModel" type="email" matInput placeholder="Digite seu email" ngModel name="email" email
         required />
