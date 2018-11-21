@@ -384,6 +384,8 @@ MIT
 
 @angular/material/datepicker
 
+@angular/material/snack-bar
+
 @angular/router
 MIT
 
@@ -621,13 +623,25 @@ THE SOFTWARE.
 
 @angular/material/checkbox
 
-@angular/material/core
+@angular/material/tabs
 
-@angular/material/list
+@angular/material/sort
+
+@angular/material/icon
+
+@angular/material/table
+
+@angular/material/progress-spinner
+
+@angular/material/card
+
+@angular/material/expansion
 
 @angular/material/sidenav
 
-@angular/material/icon
+@angular/material/core
+
+@angular/material/list
 
 @angular/material/toolbar
 
