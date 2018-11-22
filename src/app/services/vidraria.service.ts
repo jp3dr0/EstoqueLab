@@ -31,6 +31,12 @@ export class VidrariaService {
   createVidraria(vidraria: Vidraria) {
     return this.http.post(environment.apiUrl + "vidraria/", vidraria);
   }
+  /*
+  updateVidraria(id: number, obj: any) {
+    console.log("update vidraria", obj);
+    return this.http.put(environment.apiUrl + "teste/verbo/" + id, obj);
+  }
+  */
 
   updateVidraria(id: number, obj: any) {
     console.log("update vidraria", obj);

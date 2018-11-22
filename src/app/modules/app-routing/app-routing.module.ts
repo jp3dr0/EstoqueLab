@@ -16,9 +16,9 @@ const routes: Routes = [
   { path: "registrar", component: RegistrarComponent },
   { path: "login", component: LoginComponent },
   { path: "home", component: ListagemComponent, canActivate: [AuthGuard] },
-  { path: "vidraria", redirectTo: "vidraria/" },
+  { path: "vidraria", component: VidrariaComponent },
   { path: "vidraria/:id", component: VidrariaComponent },
-  { path: "reagente", redirectTo: "reagente/" },
+  { path: "reagente", component: ReagenteComponent },
   { path: "reagente/:id", component: ReagenteComponent },
   { path: "**", component: PageNotFoundComponent }
 ];

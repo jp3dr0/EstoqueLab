@@ -77,6 +77,7 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
   }
 
   editar(id) {
-    this.router.navigate(["/reagente", id]);
+    //this.router.navigate(["/reagente", id]);
+    this.router.navigate(["/reagente/" + id]);
   }
 }

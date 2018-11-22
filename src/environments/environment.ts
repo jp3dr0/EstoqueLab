@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //apiUrl: "http://localhost/estoquelab/"
-  apiUrl: "http://estoquelab.dx.am/api/"
+  apiUrl: "http://localhost/estoquelab/"
+  //apiUrl: "http://estoquelab.dx.am/api/"
 };
 
 /*
