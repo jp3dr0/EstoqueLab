@@ -2,7 +2,7 @@ import { ExcluirModalComponent } from "./../excluir-modal.component";
 import { VidrariaService } from "./../../../services/vidraria.service";
 import { Router } from "@angular/router";
 import { ViewChild } from "@angular/core";
-import { MatSort, MatDialog } from "@angular/material";
+import { MatSort, MatDialog, MatSnackBar } from "@angular/material";
 import { MatTableDataSource } from "@angular/material";
 import { Observable } from "rxjs";
 import { Vidraria } from "./../../../models/vidraria";
@@ -16,6 +16,7 @@ import { Component, OnInit } from "@angular/core";
 export class VidrariasComponent implements OnInit {
   vidrarias: Vidraria[];
   vidrariasObservable: Observable<Vidraria[]>;
+  loading: boolean;
 
   displayedColumns = ["nome", "valor", "tamanho", "quantidade", "acoes"];
   dataSource = new MatTableDataSource<any>();
@@ -23,23 +24,24 @@ export class VidrariasComponent implements OnInit {
 
   constructor(
     private vidrariaService: VidrariaService,
+    public snackBar: MatSnackBar,
     private dialog: MatDialog,
     private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.loadReagentes();
+  ) {
+    loading: true;
   }
 
-  loadReagentes() {
-    console.log("get vidrarias");
-
+  ngOnInit() {
     this.vidrariasObservable = this.vidrariaService.getVidrarias();
+    this.getVidrarias();
+  }
 
+  getVidrarias() {
     this.vidrariasObservable.subscribe(vidrarias => {
       console.log(vidrarias);
       this.vidrarias = vidrarias;
       this.dataSource.data = this.vidrarias;
+      this.loading = false;
     });
   }
 
@@ -65,10 +67,36 @@ export class VidrariasComponent implements OnInit {
         if (result) {
           this.vidrariaService.deleteVidraria(id).subscribe(
             res => {
-              alert(res.toString());
+              console.log(res);
+              this.getVidrarias();
+              /*
+              if (res.msg) {
+                const dialogRef = this.dialog.open(ToastModalComponent, {
+                  data: {
+                    msg: res.msg,
+                    success: true
+                  }
+                });
+  
+                dialogRef.afterClosed().subscribe(result => {
+                  if (result) {
+                    //
+                  }
+                });
+              }
+              */
+
+              this.snackBar
+                .open(res, "OK", {
+                  duration: 2000
+                })
+                .afterDismissed()
+                .subscribe(() => {
+                  //
+                });
             },
             error => {
-              alert(error.toString());
+              console.log(error);
             }
           );
         }

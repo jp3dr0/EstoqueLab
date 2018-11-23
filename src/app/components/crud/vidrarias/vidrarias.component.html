@@ -1,4 +1,4 @@
-<div *ngIf="vidrarias">
+<div *ngIf="!loading">
   <div fxLayoutAlign="center center">
     <mat-form-field fxFlex="50%" style="margin-top: 10px;">
       <input
@@ -72,7 +72,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
 </div>
-<div *ngIf="!vidrarias" fxLayoutAlign="center">
+<div *ngIf="loading" fxLayoutAlign="center">
   <mat-progress-spinner
     [diameter]="40"
     mode="indeterminate"

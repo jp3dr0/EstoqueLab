@@ -7,8 +7,9 @@ import { MAT_DIALOG_DATA } from "@angular/material";
     <h1 mat-dialog-title>Você tem certeza?</h1>
     <mat-dialog-content>
       <p>
-        Realmente deseja excluir o {{ passedData.tipo }}
-        {{ passedData.nome ? passedData.nome : "" }}?
+        Realmente deseja excluir o {{ passedData.tipo }} "{{
+          passedData.nome ? passedData.nome : ""
+        }}"?
       </p>
     </mat-dialog-content>
     <mat-dialog-actions>

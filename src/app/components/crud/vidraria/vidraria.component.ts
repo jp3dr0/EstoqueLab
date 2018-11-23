@@ -1,10 +1,12 @@
+import { ToastModalComponent } from "./../toast-modal.component";
 import { FormControl } from "@angular/forms";
 import { VidrariaService } from "./../../../services/vidraria.service";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup } from "@angular/forms";
 import { Vidraria } from "./../../../models/vidraria";
 import { Component, OnInit, AfterViewInit } from "@angular/core";
+
 @Component({
   selector: "app-vidraria",
   templateUrl: "./vidraria.component.html",
@@ -23,7 +25,8 @@ export class VidrariaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private vidrariaService: VidrariaService
+    private vidrariaService: VidrariaService,
+    public snackBar: MatSnackBar
   ) {
     this.loading = true;
 
@@ -31,7 +34,7 @@ export class VidrariaComponent implements OnInit {
       nome: new FormControl("", {
         validators: []
       }),
-      estoque: new FormControl("", {
+      qtdEstoque: new FormControl("", {
         //validators: [Validators.required]
       })
     });
@@ -42,17 +45,21 @@ export class VidrariaComponent implements OnInit {
       if (params && params["id"] != 0) {
         this.id = +params["id"]; // (+) converts string 'id' to a number
 
-        this.vidrariaService.getVidraria(this.id).subscribe(v => {
-          this.vidraria = v;
-          this.loading = false;
-
-          this.nome = v.nome;
-          this.estoque = v.qtdEstoque;
-        });
+        this.getVidraria();
       } else {
         this.loading = false;
       }
       // In a real app: dispatch action to load the details here.
+    });
+  }
+
+  getVidraria() {
+    this.vidrariaService.getVidraria(this.id).subscribe(v => {
+      this.vidraria = v;
+      this.loading = false;
+
+      this.nome = v.nome;
+      this.estoque = v.qtdEstoque;
     });
   }
 
@@ -70,15 +77,42 @@ export class VidrariaComponent implements OnInit {
         })
         .subscribe(
           res => {
-            alert(res.toString());
-            this.loading = false;
+            console.log(res);
+            this.getVidraria();
+            /*
+            if (res.msg) {
+              const dialogRef = this.dialog.open(ToastModalComponent, {
+                data: {
+                  msg: res.msg,
+                  success: true
+                }
+              });
+
+              dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                  //
+                }
+              });
+            }
+            */
+
+            this.snackBar
+              .open(res.msg, "OK", {
+                duration: 2000
+              })
+              .afterDismissed()
+              .subscribe(() => {
+                //
+              });
           },
           error => {
-            alert(error.toString());
+            console.log(error);
           }
         );
     } else {
-      alert("Nenhum valor foi digitado!");
+      this.snackBar.open("Nenhum valor foi adicionado!", "OK", {
+        duration: 2000
+      });
     }
   }
 }

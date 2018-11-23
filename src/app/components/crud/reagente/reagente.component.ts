@@ -1,6 +1,6 @@
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { ReagenteService } from "./../../../services/reagente.service";
-import { MatDialog } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import {
   Component,
   OnInit,
@@ -30,7 +30,7 @@ export class ReagenteComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    public snackBar: MatSnackBar,
     private reagenteService: ReagenteService
   ) {
     this.loading = true;
@@ -56,15 +56,7 @@ export class ReagenteComponent implements OnInit, OnDestroy {
       if (params && params["id"] != 0) {
         this.id = +params["id"]; // (+) converts string 'id' to a number
         console.log("id", this.id);
-        this.reagenteService.getReagente(this.id).subscribe(r => {
-          this.reagente = r;
-          this.loading = false;
-
-          this.nome = r.nome;
-          this.lacrado = r.qtdEstoqueLacrado;
-          this.total = r.qtdEstoqueTotal;
-          this.aberto = r.qtdEstoqueAberto;
-        });
+        this.getReagente();
       } else {
         this.loading = false;
       }
@@ -72,8 +64,25 @@ export class ReagenteComponent implements OnInit, OnDestroy {
     });
   }
 
+  getReagente() {
+    this.reagenteService.getReagente(this.id).subscribe(r => {
+      this.reagente = r;
+      this.loading = false;
+
+      this.nome = r.nome;
+      this.lacrado = r.qtdEstoqueLacrado;
+      this.total = r.qtdEstoqueTotal;
+      this.aberto = r.qtdEstoqueAberto;
+    });
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  atualizarTotal() {
+    this.total =
+      parseInt(this.lacrado.toString()) + parseInt(this.aberto.toString());
   }
 
   onSubmit() {
@@ -86,20 +95,42 @@ export class ReagenteComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           res => {
-            alert(res.toString());
-            this.loading = false;
+            console.log(res);
+            this.getReagente();
+            /*
+            if (res.msg) {
+              const dialogRef = this.dialog.open(ToastModalComponent, {
+                data: {
+                  msg: res.msg,
+                  success: true
+                }
+              });
+
+              dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                  //
+                }
+              });
+            }
+            */
+
+            this.snackBar
+              .open(res.msg, "OK", {
+                duration: 2000
+              })
+              .afterDismissed()
+              .subscribe(() => {
+                //
+              });
           },
           error => {
-            alert(error.toString());
+            console.log(error);
           }
         );
     } else {
-      alert("Nenhum valor foi digitado!");
+      this.snackBar.open("Nenhum valor foi adicionado!", "OK", {
+        duration: 2000
+      });
     }
-  }
-
-  atualizarTotal() {
-    this.total =
-      parseInt(this.lacrado.toString()) + parseInt(this.aberto.toString());
   }
 }

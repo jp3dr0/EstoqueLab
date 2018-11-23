@@ -3,6 +3,7 @@ import { environment } from "./../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Tamanho } from "../models/tamanho";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -38,12 +39,12 @@ export class VidrariaService {
   }
   */
 
-  updateVidraria(id: number, obj: any) {
+  updateVidraria(id: number, obj: any): Observable<any> {
     console.log("update vidraria", obj);
     return this.http.put(environment.apiUrl + "vidraria/" + id, obj);
   }
 
-  deleteVidraria(id: number) {
+  deleteVidraria(id: number): Observable<any> {
     return this.http.delete(environment.apiUrl + "vidraria/" + id, {
       responseType: "json"
     });

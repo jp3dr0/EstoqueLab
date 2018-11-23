@@ -1,6 +1,11 @@
 import { Reagente } from "./../../../models/reagente";
 import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
-import { MatTableDataSource, MatSort, MatDialog } from "@angular/material";
+import {
+  MatTableDataSource,
+  MatSort,
+  MatDialog,
+  MatSnackBar
+} from "@angular/material";
 import { ReagenteService } from "src/app/services/reagente.service";
 import { Observable } from "rxjs";
 import { ExcluirModalComponent } from "../excluir-modal.component";
@@ -14,6 +19,7 @@ import { Router } from "@angular/router";
 export class ReagentesComponent implements OnInit, AfterViewInit {
   reagentes: Reagente[];
   reagentesObservable: Observable<Reagente[]>;
+  loading: boolean;
 
   displayedColumns = ["nome", "valor", "classificacao", "quantidade", "acoes"];
   dataSource = new MatTableDataSource<any>();
@@ -21,15 +27,18 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private reagenteService: ReagenteService,
+    private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.loadReagentes();
+  ) {
+    this.loading = true;
   }
 
-  loadReagentes() {
+  ngOnInit() {
+    this.getReagentes();
+  }
+
+  getReagentes() {
     console.log("get reagentes");
 
     this.reagentesObservable = this.reagenteService.getReagentes();
@@ -38,6 +47,7 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
       console.log(reagentes);
       this.reagentes = reagentes;
       this.dataSource.data = this.reagentes;
+      this.loading = false;
     });
   }
 
@@ -65,10 +75,36 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
         if (result) {
           this.reagenteService.deleteReagente(id).subscribe(
             res => {
-              alert(res.toString());
+              console.log(res);
+              this.getReagentes();
+              /*
+              if (res.msg) {
+                const dialogRef = this.dialog.open(ToastModalComponent, {
+                  data: {
+                    msg: res.msg,
+                    success: true
+                  }
+                });
+  
+                dialogRef.afterClosed().subscribe(result => {
+                  if (result) {
+                    //
+                  }
+                });
+              }
+              */
+
+              this.snackBar
+                .open(res, "OK", {
+                  duration: 2000
+                })
+                .afterDismissed()
+                .subscribe(() => {
+                  //
+                });
             },
             error => {
-              alert(error.toString());
+              console.log(error);
             }
           );
         }

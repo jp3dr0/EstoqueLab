@@ -18,9 +18,10 @@ import { ListagemComponent } from "./components/crud/listagem/listagem.component
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { ExcluirModalComponent } from "./components/crud/excluir-modal.component";
-import { ReagentesComponent } from './components/crud/reagentes/reagentes.component';
-import { VidrariasComponent } from './components/crud/vidrarias/vidrarias.component';
-import { PageNotFoundComponent } from './components/navigation/page-not-found/page-not-found.component';
+import { ReagentesComponent } from "./components/crud/reagentes/reagentes.component";
+import { VidrariasComponent } from "./components/crud/vidrarias/vidrarias.component";
+import { PageNotFoundComponent } from "./components/navigation/page-not-found/page-not-found.component";
+import { ToastModalComponent } from "./components/crud/toast-modal.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PageNotFoundComponent } from './components/navigation/page-not-found/pa
     ExcluirModalComponent,
     ReagentesComponent,
     VidrariasComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ToastModalComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,6 @@ import { PageNotFoundComponent } from './components/navigation/page-not-found/pa
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ExcluirModalComponent]
+  entryComponents: [ExcluirModalComponent, ToastModalComponent]
 })
 export class AppModule {}

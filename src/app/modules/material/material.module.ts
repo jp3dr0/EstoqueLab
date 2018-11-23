@@ -47,7 +47,8 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatSnackBarModule,
     MatSlideToggleModule,
     MatGridListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -69,7 +70,8 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatSnackBarModule,
     MatSlideToggleModule,
     MatGridListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSnackBarModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: "pt-BR" }]
 })
