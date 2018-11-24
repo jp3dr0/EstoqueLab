@@ -45,9 +45,12 @@ export class ReagenteComponent implements OnInit, OnDestroy {
       qtdEstoqueAberto: new FormControl("", {
         validators: []
       }),
-      qtdEstoqueTotal: new FormControl("", {
-        validators: []
-      })
+      qtdEstoqueTotal: new FormControl(
+        { value: "", disabled: true },
+        {
+          validators: []
+        }
+      )
     });
   }
 
