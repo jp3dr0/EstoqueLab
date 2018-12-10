@@ -1,18 +1,18 @@
 <mat-nav-list (click)="onClose()">
-  <a mat-list-item routerLink="/registrar" *ngIf="!isLoggedIn">
+  <a mat-list-item routerLink="/registrar" *ngIf="!auth.isAuthenticated()">
     <mat-icon>face</mat-icon>
     <span class="nav-legenda">Registrar</span>
   </a>
-  <a mat-list-item routerLink="/login" *ngIf="!isLoggedIn">
+  <a mat-list-item routerLink="/login" *ngIf="!auth.isAuthenticated()">
     <mat-icon>input</mat-icon>
     <span class="nav-legenda">Login</span>
   </a>
-  <a mat-list-item routerLink="/home" *ngIf="isLoggedIn">
+  <a mat-list-item routerLink="/home" *ngIf="auth.isAuthenticated()">
     <mat-icon>toc</mat-icon>
     <span class="nav-legenda">Estoque</span>
   </a>
   <mat-list-item>
-    <button mat-icon-button click *ngIf="isLoggedIn" (click)="onLogout()">
+    <button mat-icon-button click *ngIf="auth.isAuthenticated()" (click)="onLogout()">
       <mat-icon>eject</mat-icon>
       <span class="nav-legenda">Logout</span>
     </button>

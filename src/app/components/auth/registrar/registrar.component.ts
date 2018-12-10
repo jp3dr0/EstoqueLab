@@ -1,3 +1,4 @@
+import { MatSnackBar } from "@angular/material";
 import { AuthService } from "./../../../services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
@@ -11,7 +12,7 @@ import * as moment from "moment";
 export class RegistrarComponent implements OnInit {
   dataMaxima: moment.Moment;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) {
     this.dataMaxima = moment();
     // a pessoa deve ter no minimo 18 anos
     this.dataMaxima.year(this.dataMaxima.year() - 18);
@@ -19,11 +20,29 @@ export class RegistrarComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSubmit(form: NgForm) {
-    console.log(form);
-    this.authService.registrarUsuario({
-      email: form.value.email,
-      senha: form.value.senha
-    });
+  async onSubmit(form: NgForm) {
+    console.log(form.value);
+
+    let snackbarMsg = "Sem Resposta";
+
+    await this.authService
+      .registrar({
+        email: form.value.email,
+        senha: form.value.senha
+      })
+      .subscribe(
+        response => this.authService.finishAuthentication(response.token),
+        //error => (snackbarMsg = error.msg)
+        error => console.log(error)
+      );
+
+    this.snackBar
+      .open(snackbarMsg, "OK", {
+        duration: 2000
+      })
+      .afterDismissed()
+      .subscribe(() => {
+        //
+      });
   }
 }

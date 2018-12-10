@@ -10,26 +10,29 @@ import { Subscription } from "rxjs";
 export class SidenavComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
 
-  isLoggedIn: boolean;
-  authSubscription: Subscription;
+  //isLoggedIn: boolean;
+  //authSubscription: Subscription;
 
-  constructor(private authService: AuthService) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {
+    /*
     this.authSubscription = this.authService.authChange.subscribe(
       authStatus => {
         this.isLoggedIn = authStatus;
         //console.log("logged in ", this.isLoggedIn);
       }
     );
+    */
   }
-
+  /*
   ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
   }
+  */
 
   onLogout() {
-    this.authService.logout();
+    this.auth.logout();
   }
 
   onClose() {

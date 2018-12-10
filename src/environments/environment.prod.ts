@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: "http://estoquelab.dx.am/api/"
+  apiUrl: "http://localhost/estoquelab/"
+  //apiUrl: "http://estoquelab.dx.am/api/"
 };
