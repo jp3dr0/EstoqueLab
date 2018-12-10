@@ -1,6 +1,6 @@
 <div *ngIf="!loading">
   <div fxLayoutAlign="center center">
-    <mat-form-field fxFlex="50%" style="margin-top: 10px;">
+    <mat-form-field fxFlex="30%" style="margin-top: 10px;">
       <input
         matInput
         type="text"
@@ -24,7 +24,8 @@
     <ng-container matColumnDef="valor">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
       <mat-cell *matCellDef="let element"
-        >{{ element.valor }} {{ element.unidade.nome }}</mat-cell
+        >{{ element.valor || "" }}
+        {{ element.unidade ? element.unidade.nome : "" }}</mat-cell
       >
     </ng-container>
 
@@ -33,7 +34,7 @@
         >Classificação</mat-header-cell
       >
       <mat-cell *matCellDef="let element">{{
-        element.classificacao.nome
+        element.classificacao ? element.classificacao.nome : ""
       }}</mat-cell>
     </ng-container>
 

@@ -10,8 +10,16 @@ mat-sidenav {
 
 app-header {
   position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.spacing {
+  width: auto;
+  /*
+  height: 10%;
+  */
+  height: 56px;
 }

@@ -18,24 +18,30 @@ a {
   /*
   font-size: 1.1rem;
   */
-  font-family: Roboto,"Helvetica Neue",sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    line-height: 36px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 36px;
   display: inline-block;
   padding-left: 6px;
 }
 
 mat-toolbar {
+  /*
   padding: 8px 16px;
   align-items: center;
       display: flex;
     flex-wrap: wrap;
-  /*
   padding-top: 0;
   padding-bottom: 0;
   */
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
 
 a {
@@ -43,36 +49,52 @@ a {
   color: inherit;
 }
 
-.mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button {
-    box-sizing: border-box;
-    position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: pointer;
-    outline: 0;
-    border: none;
-    -webkit-tap-highlight-color: transparent;
-    display: inline-block;
-    white-space: nowrap;
-    text-decoration: none;
-    vertical-align: baseline;
-    text-align: center;
-    margin: 0;
-    min-width: 64px;
-    line-height: 36px;
-    padding: 0 16px;
-    border-radius: 4px;
-    overflow: visible;
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+  box-sizing: border-box;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  vertical-align: baseline;
+  text-align: center;
+  margin: 0;
+  min-width: 64px;
+  line-height: 36px;
+  padding: 0 16px;
+  border-radius: 4px;
+  overflow: visible;
 }
 
-.mat-toolbar-row, .mat-toolbar-single-row {
-    height: auto;
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  height: auto;
 }
 
 img {
-    height: 26px;
-    margin: 0 4px 3px 0;
-    vertical-align: middle;
+  height: 26px;
+  margin: 0 4px 3px 0;
+  vertical-align: middle;
+}
+
+.flex-spacer {
+  display: block;
+  flex-grow: 1;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 0;
 }

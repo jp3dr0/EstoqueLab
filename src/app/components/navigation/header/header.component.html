@@ -1,40 +1,90 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
-
   <nav>
-    <a _ngcontent-c1="" aria-label="Angular Material" class="docs-button mat-button" mat-button="" routerlink="/"
-      tabindex="0" aria-disabled="false" href="/"><span class="mat-button-wrapper"><img _ngcontent-c1="" alt="IFRN"
-          class="docs-angular-logo" src="../../assets/logo-lab.png"><span _ngcontent-c1="">Estoque Lab</span></span>
+    <!-- hamburguer -->
+    <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <!-- logo -->
+    <a
+      aria-label="Angular Material"
+      class="docs-button mat-button"
+      routerlink="/"
+      href="/"
+    >
+      <span class="mat-button-wrapper">
+        <img
+          fxHide.xs
+          alt="IFRN"
+          class="docs-angular-logo"
+          src="../../assets/logo-lab.png"
+        />
+        <span _ngcontent-c1="">Estoque Lab</span>
+      </span>
       <div class="mat-button-ripple mat-ripple" matripple=""></div>
       <div class="mat-button-focus-overlay"></div>
     </a>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
-        <li *ngIf="!auth.isAuthenticated()"><a routerLink="/registrar">Registrar</a></li>
-        <li *ngIf="!auth.isAuthenticated()"><a routerLink="/login">Login</a></li>
-        <li *ngIf="auth.isAuthenticated()"><a routerLink="/home">Estoque</a></li>
-        <li *ngIf="auth.isAuthenticated()">
-          <a style="cursor: pointer" (click)="onLogout()">Logout</a>
-        </li>
-      </ul>
+
+    <div class="flex-spacer"></div>
+
+    <div fxHide.xs>
+      <a
+        *ngIf="!auth.isAuthenticated()"
+        class="docs-navbar-hide-small docs-button mat-button ng-star-inserted"
+        href="/registrar"
+      >
+        <span class="mat-button-wrapper">Registrar</span>
+        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+        <div class="mat-button-focus-overlay"></div>
+      </a>
+      <a
+        *ngIf="!auth.isAuthenticated()"
+        class="docs-navbar-hide-small docs-button mat-button ng-star-inserted"
+        href="/login"
+      >
+        <span class="mat-button-wrapper">Login</span>
+        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+        <div class="mat-button-focus-overlay"></div>
+      </a>
+      <a
+        *ngIf="auth.isAuthenticated()"
+        class="docs-navbar-hide-small docs-button mat-button ng-star-inserted"
+        href="/home"
+      >
+        <span class="mat-button-wrapper">Estoque</span>
+        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+        <div class="mat-button-focus-overlay"></div>
+      </a>
+      <a
+        *ngIf="auth.isAuthenticated()"
+        class="docs-navbar-hide-small docs-button mat-button ng-star-inserted"
+        (click)="onLogout()"
+      >
+        <span class="mat-button-wrapper">Logout</span>
+        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+        <div class="mat-button-focus-overlay"></div>
+      </a>
     </div>
   </nav>
 
   <!--
-  <div fxHide.gt-xs>
-    <button mat-icon-button (click)="onToggleSidenav()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
-  <div><a routerLink="/">Estoque Lab</a></div>
-  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
-      <li *ngIf="!isLoggedIn"><a routerLink="/registrar">Registrar</a></li>
-      <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
-      <li *ngIf="isLoggedIn"><a routerLink="/home">Estoque</a></li>
-      <li *ngIf="isLoggedIn">
-        <a style="cursor: pointer" (click)="onLogout()">Logout</a>
-      </li>
-    </ul>
-  </div>
+    <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div><a routerLink="/">Estoque Lab</a></div>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+        <li *ngIf="!isLoggedIn"><a routerLink="/registrar">Registrar</a></li>
+        <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="/home">Estoque</a></li>
+        <li *ngIf="isLoggedIn">
+          <a style="cursor: pointer" (click)="onLogout()">Logout</a>
+        </li>
+      </ul>
+    </div>
   -->
 </mat-toolbar>
