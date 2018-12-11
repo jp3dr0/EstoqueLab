@@ -23,26 +23,40 @@ export class RegistrarComponent implements OnInit {
   async onSubmit(form: NgForm) {
     console.log(form.value);
 
-    let snackbarMsg = "Sem Resposta";
+    let snackbarMsg = "";
 
     await this.authService
       .registrar({
         email: form.value.email,
-        senha: form.value.senha
+        senha: form.value.senha,
+        nome: form.value.nome,
+        login: form.value.login,
+        nivel: form.value.nivel
       })
       .subscribe(
-        response => this.authService.finishAuthentication(response.token),
-        //error => (snackbarMsg = error.msg)
-        error => console.log(error)
+        response => {
+          this.snackBar
+            .open("Registro realizado com sucesso. Seja bem vindo!", "OK", {
+              duration: 4000
+            })
+            .afterDismissed()
+            .subscribe(() => {
+              //
+            });
+          this.authService.finishAuthentication(response.token);
+        },
+        error => {
+          console.log(error);
+          this.snackBar
+            .open(error.error.msg, "OK", {
+              duration: 4000
+            })
+            .afterDismissed()
+            .subscribe(() => {
+              //
+            });
+        }
+        //error => console.log(error)
       );
-
-    this.snackBar
-      .open(snackbarMsg, "OK", {
-        duration: 2000
-      })
-      .afterDismissed()
-      .subscribe(() => {
-        //
-      });
   }
 }

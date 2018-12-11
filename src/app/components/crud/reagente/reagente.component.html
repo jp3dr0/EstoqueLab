@@ -296,6 +296,53 @@
             <!-- class="right-aligned-header" -->
             <mat-expansion-panel-header>
               <mat-panel-title>
+                Classificação
+              </mat-panel-title>
+              <mat-panel-description>
+                {{reagente ? reagente.classificacao.nome : "Selecione a classificação do Reagente"}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayoutAlign="center">
+              <mat-form-field>
+                <mat-select placeholder="Classificação" formControlName="classificacao" [(ngModel)]="classificacao"
+                  required>
+                  <mat-option *ngFor="let classificacao of classificacoes" [value]="classificacao.id">
+                    {{classificacao.nome}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <!-- class="right-aligned-header" -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Valor
+              </mat-panel-title>
+              <mat-panel-description>
+                {{reagente ? reagente.classificacao.nome : "Selecione a classificação do Reagente"}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxLayoutAlign="center" fxFlex="column" fxLayoutGap="5px">
+              <mat-form-field>
+                <input matInput placeholder="Valor" hint="Valor do Reagente." type="number" formControlName="valor"
+                  [(ngModel)]="valor">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="Unidade" formControlName="unidade" [(ngModel)]="unidade" required>
+                  <mat-option *ngFor="let unidade of unidades" [value]="unidade.id">
+                    {{unidade.nome}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <!-- class="right-aligned-header" -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
                 Quantidade
               </mat-panel-title>
               <mat-panel-description>

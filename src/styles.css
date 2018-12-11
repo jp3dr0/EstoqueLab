@@ -21,3 +21,8 @@ body {
 .mat-content>mat-panel-description {
   flex: 0 0 auto;
 }
+
+.mat-cell,
+.mat-header-cell {
+  justify-content: center;
+}

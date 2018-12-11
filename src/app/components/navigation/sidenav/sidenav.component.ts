@@ -13,7 +13,7 @@ export class SidenavComponent implements OnInit {
   //isLoggedIn: boolean;
   //authSubscription: Subscription;
 
-  constructor(private auth: AuthService) {}
+  constructor(public auth: AuthService) {}
 
   ngOnInit() {
     /*

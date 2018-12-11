@@ -1,5 +1,18 @@
 <section class="signup-container" style='margin-top: 30px;'>
   <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <mat-form-field>
+      <input #inputNome="ngModel" type="text" matInput placeholder="Digite seu nome completo" ngModel name="nome"
+        required />
+      <mat-error *ngIf="inputEmail.hasError('required')">Campo não pode estar vazio.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input #inputLogin="ngModel" type="text" matInput placeholder="Digite seu nome de usuário" ngModel name="login"
+        required />
+      <mat-error *ngIf="inputEmail.hasError('required')">Campo não pode estar vazio.</mat-error>
+    </mat-form-field>
+
     <mat-form-field>
       <input #inputEmail="ngModel" type="email" matInput placeholder="Digite seu email" ngModel name="email" email
         required />
@@ -13,18 +26,20 @@
       <mat-hint align="end">{{ inputSenha.value?.length }}/6</mat-hint>
     </mat-form-field>
 
+    <!--
     <mat-form-field>
-      <!-- caixa de texto -->
       <input matInput [matDatepicker]="modal" placeholder="Escolha uma data" [max]="dataMaxima" ngModel required name="aniversario" />
-      <!-- botao para escolher a data -->
       <mat-datepicker-toggle matSuffix [for]="modal"></mat-datepicker-toggle>
-      <!-- "modal" para escolher a data, que aparece apos clicar no botao -->
       <mat-datepicker #modal></mat-datepicker>
     </mat-form-field>
-
-    <mat-checkbox ngModel name="checkbox" required color="primary">
-      Eu aceito os termos de condições.
-    </mat-checkbox>
+    -->
+    <mat-radio-group class="radio-group" #radioNivel="ngModel" ngModel name="nivel" required style="padding: 15px 60px;">
+      <h3 style="margin: 4px;">Nível</h3>
+      <mat-radio-button color="primary" class="radio-button" value="0">Aluno</mat-radio-button>
+      <mat-radio-button color="primary" class="radio-button" value="1">Professor</mat-radio-button>
+      <mat-radio-button color="primary" class="radio-button" value="2">Técnico</mat-radio-button>
+      <mat-radio-button color="primary" class="radio-button" value="3">Administrador</mat-radio-button>
+    </mat-radio-group>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">
       Cadastrar

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Tamanho } from "../models/tamanho";
 import { Observable } from "rxjs";
+import { Unidade } from "../models/unidade";
 
 @Injectable({
   providedIn: "root"
@@ -26,7 +27,12 @@ export class VidrariaService {
       responseType: "json"
     });
   }
-
+  getUnidades() {
+    return this.http.get<Unidade[]>(this.API_URL + "unidade", {
+      headers: this.header,
+      responseType: "json"
+    });
+  }
   getVidrarias() {
     return this.http.get<Vidraria[]>(this.API_URL + "vidraria", {
       headers: this.header,
@@ -42,7 +48,7 @@ export class VidrariaService {
   }
 
   createVidraria(vidraria: Vidraria) {
-    return this.http.post(this.API_URL + "vidraria/", vidraria, {
+    return this.http.post(this.API_URL + "vidraria", vidraria, {
       headers: this.header,
       responseType: "json"
     });

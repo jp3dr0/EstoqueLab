@@ -1,3 +1,4 @@
+import { AuthService } from "./../../../services/auth.service";
 import { Reagente } from "./../../../models/reagente";
 import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import {
@@ -21,7 +22,7 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
   reagentesObservable: Observable<Reagente[]>;
   loading: boolean;
 
-  displayedColumns = ["nome", "valor", "classificacao", "quantidade", "acoes"];
+  displayedColumns = ["nome", "valor", "classificacao", "quantidade"];
   dataSource = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort;
 
@@ -29,9 +30,11 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
     private reagenteService: ReagenteService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {
     this.loading = true;
+    if (auth.isTecnico()) this.displayedColumns.push("acoes");
   }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
 
     this.reagentesObservable.subscribe(reagentes => {
       console.log(reagentes);
+      if (reagentes === null) location.reload();
       this.reagentes = reagentes;
       this.dataSource.data = this.reagentes;
       this.loading = false;
@@ -95,7 +99,7 @@ export class ReagentesComponent implements OnInit, AfterViewInit {
               */
 
               this.snackBar
-                .open(res, "OK", {
+                .open(res.msg, "OK", {
                   duration: 2000
                 })
                 .afterDismissed()

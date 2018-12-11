@@ -1,3 +1,4 @@
+import { TecnicoGuard } from "./../../guards/tecnico.guard";
 import { PageNotFoundComponent } from "./../../components/navigation/page-not-found/page-not-found.component";
 import { ReagentesComponent } from "./../../components/crud/reagentes/reagentes.component";
 import { VidrariasComponent } from "./../../components/crud/vidrarias/vidrarias.component";
@@ -16,10 +17,26 @@ const routes: Routes = [
   { path: "registrar", component: RegistrarComponent },
   { path: "login", component: LoginComponent },
   { path: "home", component: ListagemComponent, canActivate: [AuthGuard] },
-  { path: "vidraria", component: VidrariaComponent },
-  { path: "vidraria/:id", component: VidrariaComponent },
-  { path: "reagente", component: ReagenteComponent },
-  { path: "reagente/:id", component: ReagenteComponent },
+  {
+    path: "vidraria",
+    component: VidrariaComponent,
+    canActivate: [TecnicoGuard]
+  },
+  {
+    path: "vidraria/:id",
+    component: VidrariaComponent,
+    canActivate: [TecnicoGuard]
+  },
+  {
+    path: "reagente",
+    component: ReagenteComponent,
+    canActivate: [TecnicoGuard]
+  },
+  {
+    path: "reagente/:id",
+    component: ReagenteComponent,
+    canActivate: [TecnicoGuard]
+  },
   { path: "**", component: PageNotFoundComponent }
 ];
 

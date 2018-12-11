@@ -20,7 +20,9 @@ import {
   MatSnackBarModule,
   MatSlideToggleModule,
   MatGridListModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatRadioModule,
+  MatTooltipModule
 } from "@angular/material";
 
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
@@ -48,7 +50,9 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatSlideToggleModule,
     MatGridListModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
   exports: [
     MatButtonModule,
@@ -71,7 +75,9 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatSlideToggleModule,
     MatGridListModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: "pt-BR" }]
 })

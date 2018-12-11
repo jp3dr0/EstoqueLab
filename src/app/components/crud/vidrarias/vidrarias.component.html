@@ -1,13 +1,12 @@
 <div *ngIf="!loading">
   <div fxLayoutAlign="center center">
-    <mat-form-field fxFlex="30%" style="margin-top: 10px;">
-      <input
-        matInput
-        type="text"
-        placeholder="Filtrar"
-        (keyup)="filtrar($event.target.value)"
-      />
+    <mat-form-field fxFlex="80%" fxFlex.gt-xs="30%" style="margin-top: 10px;">
+      <input matInput type="text" placeholder="Filtrar" (keyup)="filtrar($event.target.value)" />
     </mat-form-field>
+    <button mat-mini-fab matTooltip="Criar Vidraria" style="margin-left: 20px" color="primary" *ngIf="auth.isTecnico()"
+      [routerLink]="['/vidraria']">
+      <mat-icon aria-label="Criar Vidraria">add</mat-icon>
+    </button>
   </div>
 
   <mat-table [dataSource]="dataSource" matSort>
@@ -23,46 +22,28 @@
 
     <ng-container matColumnDef="valor">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
-      <mat-cell *matCellDef="let element"
-        >{{ element.valor || "" }}
-        {{ element.unidade ? element.unidade.nome : "-" }}</mat-cell
-      >
+      <mat-cell *matCellDef="let element">{{ element.valor || "" }}
+        {{ element.unidade ? element.unidade.nome : "-" }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tamanho">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Tamanho</mat-header-cell
-      >
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Tamanho</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        {{ element.tamanho ? element.tamanho.nome : "-" }}</mat-cell
-      >
+        {{ element.tamanho ? element.tamanho.nome : "-" }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="quantidade">
-      <mat-header-cell *matHeaderCellDef mat-sort-header
-        >Quantidade Total</mat-header-cell
-      >
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quantidade Total</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.qtdEstoque }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="acoes">
-      <mat-header-cell fxLayoutAlign="center" *matHeaderCellDef mat-sort-header
-        >Ações</mat-header-cell
-      >
+    <ng-container matColumnDef="acoes" *ngIf="auth.isTecnico()">
+      <mat-header-cell fxLayoutAlign="center" *matHeaderCellDef mat-sort-header>Ações</mat-header-cell>
       <mat-cell fxLayoutAlign="center" *matCellDef="let element">
-        <button
-          (click)="excluir(element.id)"
-          mat-button
-          matTooltip="Deletar a Vidraria"
-        >
+        <button (click)="excluir(element.id)" mat-button matTooltip="Deletar a Vidraria">
           <mat-icon color="accent" aria-label="Deletar">delete</mat-icon>
         </button>
-        <button
-          (click)="editar(element.id)"
-          color="accent"
-          mat-button
-          matTooltip="Editar a Vidraria"
-        >
+        <button (click)="editar(element.id)" color="accent" mat-button matTooltip="Editar a Vidraria">
           <mat-icon aria-label="Editar">edit</mat-icon>
         </button>
       </mat-cell>
@@ -73,9 +54,5 @@
   </mat-table>
 </div>
 <div *ngIf="loading" fxLayoutAlign="center">
-  <mat-progress-spinner
-    [diameter]="40"
-    mode="indeterminate"
-    color="primary"
-  ></mat-progress-spinner>
+  <mat-progress-spinner [diameter]="40" mode="indeterminate" color="primary"></mat-progress-spinner>
 </div>

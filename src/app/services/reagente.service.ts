@@ -1,3 +1,6 @@
+import { Unidade } from "./../models/unidade";
+import { Classificacao } from "./../models/classificacao";
+import { Tamanho } from "./../models/tamanho";
 import { AuthService } from "./auth.service";
 import { Reagente } from "src/app/models/reagente";
 import { environment } from "./../../environments/environment";
@@ -19,8 +22,15 @@ export class ReagenteService {
     );
   }
 
-  getTamanhos() {
-    return this.http.get<any[]>(this.API_URL + "tamanho", {
+  getClassificacoes() {
+    return this.http.get<Classificacao[]>(this.API_URL + "classificacao", {
+      headers: this.header,
+      responseType: "json"
+    });
+  }
+
+  getUnidades() {
+    return this.http.get<Unidade[]>(this.API_URL + "unidade", {
       headers: this.header,
       responseType: "json"
     });
@@ -42,7 +52,7 @@ export class ReagenteService {
   }
 
   createReagente(reagente: Reagente) {
-    return this.http.post(this.API_URL + "reagente/", reagente, {
+    return this.http.post(this.API_URL + "reagente", reagente, {
       headers: this.header,
       responseType: "json"
     });

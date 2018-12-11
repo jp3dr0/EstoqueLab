@@ -26,26 +26,52 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmit() {
-    let snackbarMsg = "Sem Resposta";
-
     await this.authService
       .login({
         email: this.loginForm.value.email,
         senha: this.loginForm.value.senha
       })
       .subscribe(
-        response => this.authService.finishAuthentication(response.token),
-        //error => (snackbarMsg = error.msg)
-        error => console.log(error)
+        response => {
+          this.snackBar
+            .open("Login realizado com sucesso. Seja bem vindo!", "OK", {
+              duration: 4000
+            })
+            .afterDismissed()
+            .subscribe(() => {
+              //
+            });
+          this.authService.finishAuthentication(response.token);
+        },
+        error => {
+          console.log(error.error.msg);
+          console.log(error);
+          //this.snackbarMsg = "aa";
+
+          this.snackBar
+            .open(error.error.msg, "OK", {
+              duration: 4000
+            })
+            .afterDismissed()
+            .subscribe(() => {
+              //
+            });
+        }
+        //error => console.log(error)
       );
 
+    //snackbarMsg = "aa";
+
+    //console.log(this.snackbarMsg);
+    /*
     this.snackBar
-      .open(snackbarMsg, "OK", {
+      .open(this.snackbarMsg, "OK", {
         duration: 2000
       })
       .afterDismissed()
       .subscribe(() => {
         //
       });
+      */
   }
 }

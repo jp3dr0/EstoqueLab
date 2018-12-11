@@ -26,12 +26,8 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}login`, this.usuario);
   }
 
-  registrar(authData: AuthData): Observable<any> {
-    this.usuario = {
-      email: authData.email,
-      senha: authData.senha,
-      nivel: authData.nivel
-    };
+  registrar(usuario: Usuario): Observable<any> {
+    this.usuario = usuario;
     return this.http.post(`${environment.apiUrl}registrar`, this.usuario);
   }
 
@@ -42,6 +38,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem("token");
+    this.router.navigate(["login"]);
   }
 
   isAuthenticated(): boolean {
@@ -49,15 +46,15 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return jwtDecode(this.getToken()).nivel === 3;
+    return jwtDecode(this.getToken()).nivel >= 3;
   }
 
   isTecnico(): boolean {
-    return jwtDecode(this.getToken()).nivel === 2;
+    return jwtDecode(this.getToken()).nivel >= 2;
   }
 
   isProfessor(): boolean {
-    return jwtDecode(this.getToken()).nivel === 1;
+    return jwtDecode(this.getToken()).nivel >= 1;
   }
 
   getToken(): string {

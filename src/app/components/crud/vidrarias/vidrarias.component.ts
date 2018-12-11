@@ -1,3 +1,4 @@
+import { AuthService } from "./../../../services/auth.service";
 import { ExcluirModalComponent } from "./../excluir-modal.component";
 import { VidrariaService } from "./../../../services/vidraria.service";
 import { Router } from "@angular/router";
@@ -18,7 +19,7 @@ export class VidrariasComponent implements OnInit {
   vidrariasObservable: Observable<Vidraria[]>;
   loading: boolean;
 
-  displayedColumns = ["nome", "valor", "tamanho", "quantidade", "acoes"];
+  displayedColumns = ["nome", "valor", "tamanho", "quantidade"];
   dataSource = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort;
 
@@ -26,9 +27,11 @@ export class VidrariasComponent implements OnInit {
     private vidrariaService: VidrariaService,
     public snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {
-    loading: true;
+    this.loading = true;
+    if (auth.isTecnico()) this.displayedColumns.push("acoes");
   }
 
   ngOnInit() {
@@ -39,6 +42,7 @@ export class VidrariasComponent implements OnInit {
   getVidrarias() {
     this.vidrariasObservable.subscribe(vidrarias => {
       console.log(vidrarias);
+      if (vidrarias === null) location.reload();
       this.vidrarias = vidrarias;
       this.dataSource.data = this.vidrarias;
       this.loading = false;
@@ -87,7 +91,7 @@ export class VidrariasComponent implements OnInit {
               */
 
               this.snackBar
-                .open(res, "OK", {
+                .open(res.msg, "OK", {
                   duration: 2000
                 })
                 .afterDismissed()
