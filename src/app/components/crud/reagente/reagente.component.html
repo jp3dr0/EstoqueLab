@@ -299,7 +299,7 @@
                 Classificação
               </mat-panel-title>
               <mat-panel-description>
-                {{reagente ? reagente.classificacao.nome : "Selecione a classificação do Reagente"}}
+                {{reagente && reagente.classificacao ? reagente.classificacao.nome : "Selecione a classificação do Reagente"}}
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div fxLayoutAlign="center">

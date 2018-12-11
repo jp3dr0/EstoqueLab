@@ -92,6 +92,7 @@ export class VidrariaComponent implements OnInit {
 
   getVidraria() {
     this.vidrariaService.getVidraria(this.id).subscribe(v => {
+      if (v === null) location.reload();
       this.vidraria = v;
       this.loading = false;
 
@@ -114,7 +115,7 @@ export class VidrariaComponent implements OnInit {
 
     Object.keys(values).forEach(value => {
       console.log(value);
-      if (value === "0" || value === undefined) {
+      if (value === undefined) {
         value = null;
       }
     });

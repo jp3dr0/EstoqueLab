@@ -106,6 +106,7 @@ export class ReagenteComponent implements OnInit, OnDestroy {
 
   getReagente() {
     this.reagenteService.getReagente(this.id).subscribe(r => {
+      if (r === null) location.reload();
       this.reagente = r;
       this.loading = false;
 
